@@ -41,9 +41,14 @@ class Bounder:
         self.boundingBox = coordinatePoints
 
     # Take all the strings of addresses and store them inside the addresses array
-    # def getAddresses(self):
+    def getAddresses(self):
 
-    
+        # GET ADDRESSES
+        i = 1
+        while(i < len(self.lines)):
+            self.allAddresses.append(self.lines[i].replace("\n", ""))
+            i += 1
+
 # ------------------------------------------------------------
 # geolocator = Nominatim(user_agent="app.py")
 # location = geolocator.geocode("175 5th Avenue NYC")
@@ -54,3 +59,4 @@ class Bounder:
 
 x = Bounder("test.txt")
 x.getBounds()
+x.getAddresses()
