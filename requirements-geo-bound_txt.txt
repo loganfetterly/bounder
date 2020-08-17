@@ -1,0 +1,32 @@
+# Geocoding and bounding
+
+You are writing a program to try to find out which addresses
+are within a given area.
+
+- Input will be taken from a file given in the command line IE
+  ./myapplication input.txt
+- The first line of the file will be a bounding box in coordinates
+- Subsequent lines will be addresses
+- At the end of the program print out the addresses that are inside the box.
+- All input will be valid
+- All addresses will be valid
+
+# Example input
+(37.5, -122.5), (38.2, -121.6), (37.0, -121.4), (36.6, -121.3)
+1706 Forest View Ave Hillsborough CA 94010
+1 Hacker Way, Menlo Park, CA
+3045 Novato Blvd, Novato, CA 94947
+30840 Northwestern Highway, Farmington Hills, MI
+
+# Example Output
+1706 Forest View Ave Hillsborough CA 94010
+1 Hacker Way, Menlo Park, CA
+
+
+Use python programming language for this. Your solution should include
+automated tests, and a README that explains your solution, any design or
+technical decisions you made, how to run the code and tests
+and how to install any required dependencies.
+
+
+Reach out with any questions you have.
