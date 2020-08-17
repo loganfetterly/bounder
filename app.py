@@ -25,10 +25,10 @@ class Bounder:
     def __init__(self, file):
         self.file = open(file)
         self.allAddresses = []
+        self.addressPoints = []
         self.inBoxAddresses = []
-        self.boundingBox = []
-        self.polygon = []
-        self.points = []
+        self.boundingInput = []
+        self.boundingPoints = []
         self.geoCoder = Nominatim(user_agent="app.py")
         self.lines = self.file.readlines()
 
@@ -37,7 +37,6 @@ class Bounder:
 
     # Take file and get the bounding information inside the boundingBox array
     # EXAMPLE INPUT (37.5, -122.5), (38.2, -121.6), (37.0, -121.4), (36.6, -121.3)
-
     def getBounds(self):
         coordinatePoints = re.findall(r"[+-]?\d+\.?\d*", self.lines[0])
         for num in range(len(coordinatePoints)):
@@ -51,16 +50,22 @@ class Bounder:
             self.allAddresses.append(self.lines[i].replace("\n", ""))
             i += 1
 
-    # Convert list of floats to Points using Shapely
+    # Convert list of floats in boundingBox to Points using Shapely
     def convertBoundsToPoints(self):
         i = 0
-        while(i < len(self.boundingBox)):
-            self.points.append(Point(self.boundingBox[i], self.boundingBox[i + 1]))
+        while(i < len(self.boundingInput)):
+            self.points.append(Point(self.boundingInput[i], self.boundingInput[i + 1]))
             i += 2
+    
+    # Geocode addresses into points
+    def geoCode(self):
+        for address in self.allAddresses:
+            loc = self.geoCoder.geocode(address)
+            self.addressPoints.append(Point(loc.longitude, loc.latitude))
 
 # ------------------------------------------------------------
 # geolocator = Nominatim(user_agent="app.py")
-# location = geolocator.geocode("175 5th Avenue NYC")
+# 
 # print(location.address)
 # print((location.latitude, location.longitude))
 # (40.7410861, -73.9896297241625)
