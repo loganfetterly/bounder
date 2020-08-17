@@ -7,6 +7,8 @@
 # IMPORTS
 import re
 from geopy.geocoders import Nominatim
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon
 
 # MAIN BLOCK
 
@@ -25,6 +27,8 @@ class Bounder:
         self.allAddresses = []
         self.inBoxAddresses = []
         self.boundingBox = []
+        self.polygon = []
+        self.points = []
         self.geoCoder = Nominatim(user_agent="app.py")
         self.lines = self.file.readlines()
 
@@ -42,12 +46,17 @@ class Bounder:
 
     # Take all the strings of addresses and store them inside the addresses array
     def getAddresses(self):
-
-        # GET ADDRESSES
         i = 1
         while(i < len(self.lines)):
             self.allAddresses.append(self.lines[i].replace("\n", ""))
             i += 1
+
+    # Convert list of floats to Points using Shapely
+    def convertBoundsToPoints(self):
+        i = 0
+        while(i < len(self.boundingBox)):
+            self.points.append(Point(self.boundingBox[i], self.boundingBox[i + 1]))
+            i += 2
 
 # ------------------------------------------------------------
 # geolocator = Nominatim(user_agent="app.py")
@@ -60,3 +69,4 @@ class Bounder:
 x = Bounder("test.txt")
 x.getBounds()
 x.getAddresses()
+x.convertBoundsToPoints()
