@@ -2,7 +2,7 @@
 # This file uses geopy to geocode the addresses
 
 # Installation: pip install geopy
-# Installation: 
+# Installation: pip install shapely
 
 # IMPORTS
 import re
@@ -51,6 +51,8 @@ class Bounder:
         while(i < len(self.lines)):
             self.allAddresses.append(self.lines[i].replace("\n", ""))
             i += 1
+
+    # [1.0, 2.0, 3.0, ...]
 
     # Convert list of floats in boundingBox to Point Tuples for Shapely
     def convertBoundsToPoints(self):
